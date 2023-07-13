@@ -1,6 +1,12 @@
 import React from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 
+const ludoBoxDimension={
+  width:350,
+  height:350,
+  gridWidth:80,
+  gridHeight:80
+}
 const HorizontalCard = () => {
     //red,green,yellow,blue
     let CardCord= [[],[],[],[]]
@@ -72,6 +78,24 @@ const HorizontalCard = () => {
       }
     }
     console.log(CardCord)
+    const players= {
+      playerOne:{
+        name:'shanu',
+        coin:[[],[],[],[]]
+      },
+      playerTwo:{
+        name:'shanu1',
+        coin:[[],[],[],[]]
+      },
+      playerThree:{
+        name:'shanu2',
+        coin:[[],[],[],[]]
+      },
+      playerFour:{
+        name:'shanu2',
+        coin:[[],[],[],[]]
+      }
+    }
   return (
   <View style={styles.ludoContainer}>
     <View  style={[styles.resultBox,styles.allSideBorder]}>
@@ -83,8 +107,8 @@ const HorizontalCard = () => {
         return   <View key={`playing-area-${i}`} style={styles[`playingArea${i}`]}>
            {
             el.map((gridItem,gridIndex) => {
-                return   <View style={styles[`gridBox${i}`]} key={`playing-area-${i}-grid-item=${gridIndex}`}>
-                <Text></Text>
+                return   <View style={[styles[`gridBox${i}`],styles[ i!==1&& i!==3?gridIndex>5&& gridIndex<10?'transparentBox':'whiteColor':gridIndex>4&& gridIndex<9?'transparentBox':'whiteColor']]} key={`playing-area-${i}-grid-item=${gridIndex}`}>
+                <Text>{gridIndex}</Text>
             </View>
             })
            }
@@ -93,14 +117,45 @@ const HorizontalCard = () => {
         </View>
     })
    }
+   {
+    Object.keys(players).map((el,i) => {
+      return <View key={`palyer-home-${i}`} style={styles[`playerHome${i+1}`]}>
+        <Text>{players[el]?.name}</Text>
+        <View style={styles['gridCard']}>
+        {
+          players[el]?.coin.map((coins,coinsIndex) => {
+            return <View style={[styles.gridCardBox1,styles.allSideBorder]}></View>
+          })
+        }
+        </View>
+
+
+      </View>
+    })
+   }
 
   </View>
   )
 }
 const styles = StyleSheet.create({
+  redColor:{
+   backgroundColor:'red'
+  },
+  greenColor:{
+    backgroundColor:'green'
+   },
+   yellowColor:{
+    backgroundColor:'yellow'
+   },
+   whiteColor:{
+    backgroundColor:'white'
+   },
+   transparentBox:{
+backgroundColor:'transparent'
+   },
   ludoContainer: {
-    width: 300,
-    height: 100,
+    width: ludoBoxDimension.width,
+    height: ludoBoxDimension.height,
     borderTopWidth: 1,
     borderColor: "black",
     borderBottomWidth: 1,
@@ -112,8 +167,8 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   resultBox: {
-    width: 50,
-    height: 50,
+    width: ludoBoxDimension.gridWidth,
+    height: ludoBoxDimension.gridHeight,
   },
   allSideBorder: {
     borderColor: "black",
@@ -124,8 +179,8 @@ const styles = StyleSheet.create({
   },
   playingArea0: {
     position: "absolute",
-    height: 300 / 2 - 1 - 50 / 2,
-    width: 50,
+    height: ludoBoxDimension.width / 2 - 1 - ludoBoxDimension.gridHeight / 2,
+    width: ludoBoxDimension.gridHeight,
     backgroundColor: "green",
     top: 0,
     borderLeftWidth: 1,
@@ -136,8 +191,8 @@ const styles = StyleSheet.create({
   },
   playingArea1: {
     position: "absolute",
-    height: 300 / 2 - 1 - 50 / 2,
-    width: 50,
+    height: ludoBoxDimension.width / 2 - 1 - ludoBoxDimension.gridWidth / 2,
+    width: ludoBoxDimension.gridWidth,
     backgroundColor: "red",
     bottom: 0,
     borderLeftWidth: 1,
@@ -148,10 +203,10 @@ const styles = StyleSheet.create({
   },
   playingArea2: {
     position: "absolute",
-    top: 300 / 2 - 1 - 50 / 2,
+    top: ludoBoxDimension.width / 2 - 1 - ludoBoxDimension.gridWidth / 2,
     left: 0,
-    width: 300 / 2 - 1 - 50 / 2,
-    height: 50,
+    width: ludoBoxDimension.width / 2 - 1 - ludoBoxDimension.gridWidth/ 2,
+    height: ludoBoxDimension.gridWidth,
     backgroundColor: "yellow",
     borderTopWidth: 1,
     borderBottomWidth: 1,
@@ -162,10 +217,10 @@ const styles = StyleSheet.create({
 
   playingArea3: {
     position: "absolute",
-    top: 300 / 2 - 1 - 50 / 2,
+    top: ludoBoxDimension.width / 2 - 1 - ludoBoxDimension.gridWidth / 2,
     right: 0,
-    width: 300 / 2 - 1 - 50 / 2,
-    height: 50,
+    width: ludoBoxDimension.width / 2 - 1 -  ludoBoxDimension.gridWidth  / 2,
+    height:  ludoBoxDimension.gridWidth ,
     backgroundColor: "blue",
     borderTopWidth: 1,
     borderBottomWidth: 1,
@@ -177,7 +232,7 @@ const styles = StyleSheet.create({
   gridBox0: {
     height:`${100/5}%`,
     // backgroundColor:'pink',
-    width:(50/3)-1,
+    width:( ludoBoxDimension.gridWidth /3)-1,
     borderRightWidth: 1,
     borderBottomWidth: 1,
  
@@ -186,24 +241,85 @@ const styles = StyleSheet.create({
   gridBox1: {
     height:`${100/5}%`,
     // backgroundColor:'pink',
-    width:(50/3)-1,
+    width:( ludoBoxDimension.gridWidth /3)-1,
     borderRightWidth: 1,
     borderBottomWidth: 1,
    
   },
   gridBox2:{
     width:`${100/5}%`,
-    height:(50/3)-1,
+    height:( ludoBoxDimension.gridWidth /3)-1,
     borderRightWidth: 1,
     borderBottomWidth: 1,
   },
   gridBox3:{
     width:`${100/5}%`,
-    height:(50/3)-1,
+    height:( ludoBoxDimension.gridWidth /3)-1,
     borderRightWidth: 1,
     borderBottomWidth: 1,
-  }
+  },
+  playerHome1:{
+    position:'absolute',
+    top:0,
+    width:(ludoBoxDimension.width /2)- ludoBoxDimension.gridWidth /2,
+    height:(ludoBoxDimension.width /2)-( ludoBoxDimension.gridWidth /2)-1,
+    backgroundColor:'green',
+    right:0
 
+  },
+  playerHome2:{
+    position:'absolute',
+     bottom:0,
+    width:(ludoBoxDimension.width /2)-( ludoBoxDimension.gridWidth /2)-1,
+    height:(ludoBoxDimension.width /2)-( ludoBoxDimension.gridWidth /2)-1,
+    backgroundColor:'red',
+    left:0
+
+  },
+  playerHome3:{
+    position:'absolute',
+     bottom:0,
+    width:(ludoBoxDimension.width /2)-( ludoBoxDimension.gridWidth /2)-1,
+    height:(ludoBoxDimension.width /2)-( ludoBoxDimension.gridWidth /2)-1,
+    backgroundColor:'blue',
+    right:0
+
+  },
+  playerHome4:{
+    position:'absolute',
+     top:0,
+    width:(ludoBoxDimension.width /2)-( ludoBoxDimension.gridWidth /2)-1,
+    height:(ludoBoxDimension.width /2)-( ludoBoxDimension.gridWidth /2)-1,
+    backgroundColor:'yellow',
+    left:0
+
+  },
+  gridCard:{
+    width:90,
+    height:90 ,
+    backgroundColor:'white',
+    marginLeft:20,
+    // flex:1,
+    // display:'flex',
+    flexDirection:'row',
+    flexWrap:'wrap',
+    // paddingEnd:5,
+    paddingStart:2,
+    paddingTop:10,
+    // paddingTop:10
+    alignItems:'center',
+    justifyContent:'center'
+
+
+  },
+  gridCardBox1:{
+    width:30,
+    height:30,
+    marginBottom:2,
+    marginLeft:2,
+    marginRight:2,
+    marginTop:2
+  }
 
 });
 
