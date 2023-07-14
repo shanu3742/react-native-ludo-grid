@@ -97,6 +97,19 @@ const HorizontalCard = () => {
       }
     }
     const colorizeGridCard = (i,gridIndex) => {
+       if(i===0 && gridIndex===13){
+        return 'transparentBox'
+      }
+      if(i===1 && gridIndex===4){
+        return 'transparentBox'
+      }
+       if(i===2 && gridIndex===1){
+        return 'transparentBox'
+      }    
+       if(i===3 && gridIndex===16){
+        return 'transparentBox'
+      }
+      
       if(i!==1&& i!==3){
         if(gridIndex>6 && gridIndex<12){
           return 'transparentBox'
@@ -114,6 +127,21 @@ const HorizontalCard = () => {
       // i!==1&& i!==3?gridIndex>6&& gridIndex<12?'transparentBox':'whiteColor':gridIndex>5&& gridIndex<11?'transparentBox':'whiteColor'
 
     }
+    const getStar = (i,gridIndex) => {
+      if(i===0&& gridIndex===1){
+        return '✡️'
+      }
+      if(i===1 && gridIndex===16){
+         return '✡️'
+      }
+         if(i===2 && gridIndex===13){
+         return '✡️'
+      }
+       if(i===3 && gridIndex===4){
+         return '✡️'
+      }
+       return ''//gridIndex
+    }
   return (
   <View style={styles.ludoContainer}>
     <View  style={[styles.resultBox,styles.allSideBorder]}>
@@ -126,7 +154,7 @@ const HorizontalCard = () => {
            {
             el.map((gridItem,gridIndex) => {
                 return   <View style={[styles[`gridBox${i}`],styles[colorizeGridCard(i,gridIndex) ]]} key={`playing-area-${i}-grid-item=${gridIndex}`}>
-                <Text>{gridIndex}</Text>
+                <Text>{getStar(i,gridIndex)}</Text>
             </View>
             })
            }
@@ -142,7 +170,9 @@ const HorizontalCard = () => {
         <View style={styles['gridCard']}>
         {
           players[el]?.coin.map((coins,coinsIndex) => {
-            return <View style={[styles.gridCardBox1,styles.allSideBorder]}></View>
+            return <View style={[styles.gridCardBox1,styles.allSideBorder]}>
+              <Text style={styles[i===0?'greenLudoCoin':i===1?'redLudoCoin':i===3?'yellowLudoCoin':'blueLudoCoin']}>⛳</Text>
+            </View>
           })
         }
         </View>
@@ -157,16 +187,19 @@ const HorizontalCard = () => {
 }
 const styles = StyleSheet.create({
   redColor:{
-   backgroundColor:'red'
+   backgroundColor:'#f77777'
   },
   greenColor:{
-    backgroundColor:'green'
+    backgroundColor:'#91c898'
    },
    yellowColor:{
-    backgroundColor:'yellow'
+    backgroundColor:'#f7f1a9'
    },
    whiteColor:{
-    backgroundColor:'white'
+    backgroundColor:'white',
+    // textAlign:'center',
+    alignItems:'center',
+    justifyContent:'center'
    },
    transparentBox:{
 backgroundColor:'transparent'
@@ -199,7 +232,7 @@ backgroundColor:'transparent'
     position: "absolute",
     height: ludoBoxDimension.width / 2 - 1 - ludoBoxDimension.gridHeight / 2,
     width: ludoBoxDimension.gridHeight,
-    backgroundColor: "green",
+    backgroundColor: "#91c898",
     top: 0,
     borderLeftWidth: 1,
     borderRightWidth: 1,
@@ -211,7 +244,7 @@ backgroundColor:'transparent'
     position: "absolute",
     height: ludoBoxDimension.width / 2 - 1 - ludoBoxDimension.gridWidth / 2,
     width: ludoBoxDimension.gridWidth,
-    backgroundColor: "red",
+    backgroundColor: "#f77777",
     bottom: 0,
     borderLeftWidth: 1,
     borderRightWidth: 1,
@@ -225,7 +258,7 @@ backgroundColor:'transparent'
     left: 0,
     width: ludoBoxDimension.width / 2 - 1 - ludoBoxDimension.gridWidth/ 2,
     height: ludoBoxDimension.gridWidth,
-    backgroundColor: "yellow",
+    backgroundColor: "#f7f1a9",
     borderTopWidth: 1,
     borderBottomWidth: 1,
     flex: 1,
@@ -239,7 +272,7 @@ backgroundColor:'transparent'
     right: 0,
     width: ludoBoxDimension.width / 2 - 1 -  ludoBoxDimension.gridWidth  / 2,
     height:  ludoBoxDimension.gridWidth ,
-    backgroundColor: "blue",
+    backgroundColor: "#78afdd",
     borderTopWidth: 1,
     borderBottomWidth: 1,
     flex: 1,
@@ -281,7 +314,7 @@ backgroundColor:'transparent'
     top:0,
     width:(ludoBoxDimension.width /2)- ludoBoxDimension.gridWidth /2,
     height:(ludoBoxDimension.width /2)-( ludoBoxDimension.gridWidth /2)-1,
-    backgroundColor:'green',
+    backgroundColor:'#91c898',
     right:0
 
   },
@@ -290,7 +323,7 @@ backgroundColor:'transparent'
      bottom:0,
     width:(ludoBoxDimension.width /2)-( ludoBoxDimension.gridWidth /2)-1,
     height:(ludoBoxDimension.width /2)-( ludoBoxDimension.gridWidth /2)-1,
-    backgroundColor:'red',
+    backgroundColor:'#f77777',
     left:0
 
   },
@@ -299,7 +332,7 @@ backgroundColor:'transparent'
      bottom:0,
     width:(ludoBoxDimension.width /2)-( ludoBoxDimension.gridWidth /2)-1,
     height:(ludoBoxDimension.width /2)-( ludoBoxDimension.gridWidth /2)-1,
-    backgroundColor:'blue',
+    backgroundColor:'#78afdd',
     right:0
 
   },
@@ -308,7 +341,7 @@ backgroundColor:'transparent'
      top:0,
     width:(ludoBoxDimension.width /2)-( ludoBoxDimension.gridWidth /2)-1,
     height:(ludoBoxDimension.width /2)-( ludoBoxDimension.gridWidth /2)-1,
-    backgroundColor:'yellow',
+    backgroundColor:'#f7f1a9',
     left:0
 
   },
@@ -336,8 +369,49 @@ backgroundColor:'transparent'
     marginBottom:2,
     marginLeft:2,
     marginRight:2,
-    marginTop:2
-  }
+    marginTop:2,
+    
+  },
+  redLudoCoin:{
+  backgroundColor:'#f77777',
+  width:20,
+  height:20,
+  borderRadius:20/2,
+  alignItems:'center',
+  justifyContent:'center',
+  marginLeft:3,
+  marginTop:3
+  },
+  greenLudoCoin:{
+    backgroundColor:'#91c898',
+    width:20,
+    height:20,
+    borderRadius:20/2,
+    alignItems:'center',
+    justifyContent:'center',
+    marginLeft:3,
+    marginTop:3
+    },
+    yellowLudoCoin:{
+      backgroundColor:'#f7f1a9',
+      width:20,
+      height:20,
+      borderRadius:20/2,
+      alignItems:'center',
+      justifyContent:'center',
+      marginLeft:3,
+      marginTop:3
+      },
+      blueLudoCoin:{
+        backgroundColor:'#78afdd',
+        width:20,
+        height:20,
+        borderRadius:20/2,
+        alignItems:'center',
+        justifyContent:'center',
+        marginLeft:3,
+        marginTop:3
+        }
 
 });
 
