@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native'
 
 const ludoBoxDimension={
   width:350,
-  height:350,
+  height:380,
   gridWidth:80,
   gridHeight:80
 }
@@ -11,7 +11,7 @@ const HorizontalCard = () => {
     //red,green,yellow,blue
     let CardCord= [[],[],[],[]]
     for(let i=0;i<CardCord.length;i++){
-      for(let j=0;j<15;j++){
+      for(let j=0;j<18;j++){
         let gridObject= {
             index:j+1,
           
@@ -96,6 +96,24 @@ const HorizontalCard = () => {
         coin:[[],[],[],[]]
       }
     }
+    const colorizeGridCard = (i,gridIndex) => {
+      if(i!==1&& i!==3){
+        if(gridIndex>6 && gridIndex<12){
+          return 'transparentBox'
+        }else{
+          return 'whiteColor'
+        }
+
+      }else{
+        if(gridIndex>5&& gridIndex<11){
+          return 'transparentBox'
+        }else{
+          return 'whiteColor'
+        }
+      }
+      // i!==1&& i!==3?gridIndex>6&& gridIndex<12?'transparentBox':'whiteColor':gridIndex>5&& gridIndex<11?'transparentBox':'whiteColor'
+
+    }
   return (
   <View style={styles.ludoContainer}>
     <View  style={[styles.resultBox,styles.allSideBorder]}>
@@ -107,7 +125,7 @@ const HorizontalCard = () => {
         return   <View key={`playing-area-${i}`} style={styles[`playingArea${i}`]}>
            {
             el.map((gridItem,gridIndex) => {
-                return   <View style={[styles[`gridBox${i}`],styles[ i!==1&& i!==3?gridIndex>5&& gridIndex<10?'transparentBox':'whiteColor':gridIndex>4&& gridIndex<9?'transparentBox':'whiteColor']]} key={`playing-area-${i}-grid-item=${gridIndex}`}>
+                return   <View style={[styles[`gridBox${i}`],styles[colorizeGridCard(i,gridIndex) ]]} key={`playing-area-${i}-grid-item=${gridIndex}`}>
                 <Text>{gridIndex}</Text>
             </View>
             })
@@ -230,7 +248,7 @@ backgroundColor:'transparent'
     
   },
   gridBox0: {
-    height:`${100/5}%`,
+    height:`${100/6}%`,
     // backgroundColor:'pink',
     width:( ludoBoxDimension.gridWidth /3)-1,
     borderRightWidth: 1,
@@ -239,7 +257,7 @@ backgroundColor:'transparent'
    
   },
   gridBox1: {
-    height:`${100/5}%`,
+    height:`${100/6}%`,
     // backgroundColor:'pink',
     width:( ludoBoxDimension.gridWidth /3)-1,
     borderRightWidth: 1,
@@ -247,13 +265,13 @@ backgroundColor:'transparent'
    
   },
   gridBox2:{
-    width:`${100/5}%`,
+    width:`${100/6}%`,
     height:( ludoBoxDimension.gridWidth /3)-1,
     borderRightWidth: 1,
     borderBottomWidth: 1,
   },
   gridBox3:{
-    width:`${100/5}%`,
+    width:`${100/6}%`,
     height:( ludoBoxDimension.gridWidth /3)-1,
     borderRightWidth: 1,
     borderBottomWidth: 1,
